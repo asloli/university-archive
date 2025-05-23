@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>海豹論壇</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAzmyKb0HKvgXDoSs1GqcnAlWsKK-2L-_M",
+			authDomain: "myfirstfirebase-89687.firebaseapp.com",
+			databaseURL: "https://myfirstfirebase-89687.firebaseio.com",
+			projectId: "myfirstfirebase-89687",
+			storageBucket: "myfirstfirebase-89687.appspot.com",
+			messagingSenderId: "316712640812",
+			appId: "1:316712640812:web:b3ca1e420a2c33e60a4c89",
+			measurementId: "G-5M70YFT3S0"
+		};
+		firebase.initializeApp(config);
+		var db = firebase.database(); 
+	</script>
+<!--===============================================================================================-->
+	<script>
+        function push(name, msg) {
+          
+          var key = db.ref('message/').push({
+            username: name,
+            message: msg
+          }).key;
+
+          //alert("Push key = "+key);
+          
+        }        
+        
+        
+        $(document).ready(function(){ 
+
+            $("#push_test").click(function(){
+                var name         = $('#push_name').val();
+                var msg          = $('#push_msg').val();
+                push(name, msg);
+            });  
+
+            function display_msgs(data_val){
+              keys = Object.keys(data_val);
+              msgs = '';
+              
+              for (var i = keys.length - 1; i >= 0; i--) {
+                msgs += data_val[keys[i]]['username'] +': '+ data_val[keys[i]]['message']+'<br>';
+              }
+              $('#data').html(msgs); 
+            }
+
+            db.ref('message/').on('value', function(snapshot) {
+              display_msgs(snapshot.val());
+            });  
+
+        });         
+    </script>
+<!--===============================================================================================-->
+</head>
+<body>
+	</script>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-b-160 p-t-50" id="div1" >
+				<div class="login100-form validate-form">
+					<span class="login100-form-title p-b-43" id="word">
+						海豹聊天室
+					</span>
+					
+					<div class="wrap-input100 rs1 validate-input">
+						<input class="input100" type="text" id="push_name" value="匿名">
+						<span class="label-input100">暱稱</span>
+					</div>
+					
+					<div class="wrap-input100 rs2 validate-input">
+						<input class="input100" type="text" id="push_msg">
+						<span class="label-input100">訊息</span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" id="push_test">
+							發送
+						</button>
+					</div>
+					<div class="text-center w-full p-t-23">
+						<a href="index.html" class="txt1">
+							返回
+						</a>
+					</div>
+					<span class="login100-form-title p-b-43">
+						-----------------[聊天室]-----------------
+					</span>
+					<label  class="login100-form-title p-b-43" id="data"></label>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+</body>
+</html>
